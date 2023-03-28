@@ -7,8 +7,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-public class BlogappApplication implements CommandLineRunner {
+@SpringBootApplication             //implements CommandLineRunner
+public class BlogappApplication  {
 
 	@Autowired
 	private RoleRepository roleRepository;
@@ -18,15 +18,15 @@ public class BlogappApplication implements CommandLineRunner {
 		SpringApplication.run(BlogappApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-		Role adminRole = new Role();
-		adminRole.setName("ROLE_ADMIN");
-		roleRepository.save(adminRole);
-
-		Role userRole = new Role();
-		userRole.setName("ROLE_USER");
-		roleRepository.save(userRole);
-
-	}
+//	@Override
+//	public void run(String... args) throws Exception {
+//		Role adminRole = new Role();
+//		adminRole.setName("ROLE_ADMIN");
+//		roleRepository.save(adminRole);
+//
+//		Role userRole = new Role();
+//		userRole.setName("ROLE_USER");
+//		roleRepository.save(userRole);
+//
+//	}
 }

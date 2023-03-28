@@ -2,6 +2,8 @@ package com.myblog.blogapp.controller;
 
 import com.myblog.blogapp.entities.Role;
 import com.myblog.blogapp.entities.User;
+import com.myblog.blogapp.exceptions.GlobalExceptionHandler;
+import com.myblog.blogapp.exceptions.ResourceNotFoundException;
 import com.myblog.blogapp.payload.JWTAuthResponse;
 import com.myblog.blogapp.payload.LoginDto;
 import com.myblog.blogapp.payload.SignUpDto;
@@ -50,9 +52,10 @@ public class AuthController {
                         loginDto.getUsernameOrEmail(),
                         loginDto.getPassword())
                 );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContextHolder.getContext().setAuthentication(authentication) ;
 
         String token = jwtTokenProvider.generateToken(authentication);
+
         return ResponseEntity.ok(new JWTAuthResponse(token));
 
        // return new ResponseEntity<>("Signin successfully", HttpStatus.OK);
@@ -89,5 +92,15 @@ public class AuthController {
 
         return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
 
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request) {
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7);
+            // TODO: Invalidate token or set expiration time
+        }
+        return ResponseEntity.ok().build();
     }
 }
